@@ -32,8 +32,14 @@ form {
   width: 50%;
   box-shadow: 0 0 10px gray inset;
 }
+.alert {
+  width: 50%;
+}
 @media (max-width:991px) {
   .form-cell input {
+    width: 100%;
+  }
+  .alert {
     width: 100%;
   }
 }
