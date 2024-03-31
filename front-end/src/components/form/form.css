@@ -1,0 +1,52 @@
+form {
+  background-image: linear-gradient(to right, white, transparent),
+    url(../../imgs/regsiter-1.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 30rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+}
+.form-cell {
+  margin-bottom: 20px;
+  position: relative;
+}
+.form-cell label,
+.form-cell input {
+  display: block;
+}
+.form-cell input:placeholder-shown + label{
+  opacity: 0;
+  visibility: hidden;
+  top: 10px;
+}
+.form-cell input {
+  padding: 10px 10px;
+  outline: none;
+  border-radius: 3px;
+  border: 0;
+  background-color: white;
+  width: 50%;
+  box-shadow: 0 0 10px gray inset;
+}
+@media (max-width:991px) {
+  .form-cell input {
+    width: 100%;
+  }
+}
+.form-cell input:focus:valid {
+  border-bottom: 3px solid green;
+}
+.form-cell input:focus:not(:valid) {
+  border-bottom: 3px solid orangered;
+}
+.form-cell label {
+  position: absolute;
+  top: -20px;
+  left: 0px;
+  color: gray;
+  transition: 0.3s;
+}
