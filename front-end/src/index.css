@@ -6,8 +6,5 @@
   text-transform: capitalize;
   margin: 0;
   padding: 0;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
   font-family: "Lato", sans-serif;
 }

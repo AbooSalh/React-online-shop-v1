@@ -6,6 +6,7 @@ export default function Register(params) {
       endPoint={REGISTER}
       heading="register now"
       btnValue="Sign up"
+      formInputs={{ email: "", password: "" , name:""}}
       inputFeilds={[
         {
           name: "name",

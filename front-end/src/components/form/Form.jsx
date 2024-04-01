@@ -3,16 +3,17 @@ import axios from "axios";
 import { baseUrl } from "../../API/Api";
 import "./form.css";
 import Loading from "../Loading/Loading";
+import Cookie from "cookie-universal"
 export default function Form(params) {
   // states
   const [form, setForm] = useState({
-    email: "",
-    password: "",
-    name: "",
+    ...params.formInputs,
   });
   const [error, setError] = useState("");
   // loading
   const [loading, setLoading] = useState(false);
+  // cookies
+  const cookie = new Cookie()
   // onChange
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,11 +23,16 @@ export default function Form(params) {
     e.preventDefault();
     try {
       setLoading(true);
-      await axios.post(`${baseUrl}/${params.endPoint}`, form);
-      window.location.pathname = "";
+      const res = await axios.post(`${baseUrl}/${params.endPoint}`, form);
+      const token = res.data.token;
+      cookie.set('Bearer',token )
+      window.location.pathname = "/users";
     } catch (error) {
       if (error.response.status === 422) {
         setError("Email is already in use");
+      }
+      if (error.response.status === 401) {
+        setError("Email or password are incorrect");
       } else {
         setError("Internal Server Error");
       }
@@ -34,26 +40,6 @@ export default function Form(params) {
       setLoading(false);
     }
   }
-  // onChange
-  // function handleChange(e) {
-  //   setForm({ ...form, [e.target.name]: e.target.value });
-  // }
-
-  // // on submit
-  // async function submit(e) {
-  //   e.preventDefault();
-  //   try {
-  //     await axios.post(`${baseUrl}/${params.endPoint}`, form);
-  //     window.location("")
-  //   } catch (error) {
-  //     if(error.response.stats === 422){
-  //       setError("Email is already in use")
-  //     }else {
-  //       setError("Internal Server Error")
-  //     }
-  //   }
-  // }
-
   return (
     <>
       <div className="container">
@@ -72,19 +58,22 @@ export default function Form(params) {
                   required
                   {...param.customAttr}
                 />
+
                 <label htmlFor={param.name} className="form-label">
                   {param.label}
                 </label>
               </div>
             ))}
             {error && (
-              <div class="alert alert-danger" role="alert">
+              <div className="alert alert-danger" role="alert">
                 {error}
               </div>
             )}
-            <button type="submit" className="btn rounded-pill btn-secondary">
+            <button
+              type="submit"
+              className="btn rounded-pill btn-secondary w-50"
+            >
               {loading ? <Loading /> : params.btnValue}
-              
             </button>
           </form>
         </div>
