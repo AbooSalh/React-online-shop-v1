@@ -3,7 +3,7 @@ import axios from "axios";
 import { baseUrl } from "../../API/Api";
 import "./form.css";
 import Loading from "../Loading/Loading";
-import Cookie from "cookie-universal"
+import Cookie from "cookie-universal";
 export default function Form(params) {
   // states
   const [form, setForm] = useState({
@@ -13,7 +13,7 @@ export default function Form(params) {
   // loading
   const [loading, setLoading] = useState(false);
   // cookies
-  const cookie = new Cookie()
+  const cookie = new Cookie();
   // onChange
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,7 +25,7 @@ export default function Form(params) {
       setLoading(true);
       const res = await axios.post(`${baseUrl}/${params.endPoint}`, form);
       const token = res.data.token;
-      cookie.set('Bearer',token )
+      cookie.set("Bearer", token);
       window.location.pathname = "/users";
     } catch (error) {
       if (error.response.status === 422) {
@@ -52,7 +52,7 @@ export default function Form(params) {
                   type={param.type}
                   name={param.name}
                   value={form[param.name]}
-                  placeholder={"Enter your " + param.name}
+                  placeholder={param.name}
                   id={param.name}
                   onChange={handleChange}
                   required
@@ -75,6 +75,20 @@ export default function Form(params) {
             >
               {loading ? <Loading /> : params.btnValue}
             </button>
+            <a
+              className="flex items-center justify-center dark:bg-gray-800 d-block"
+              href="http://127.0.0.1:8000/login-google"
+            >
+              <div className="btn btn-secondary rounded-pill mt-2">
+                <img
+                  style={{ width: "20px" }}
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  loading="lazy"
+                  alt="google logo"
+                />
+                <span>Login with Google</span>
+              </div>
+            </a>
           </form>
         </div>
       </div>

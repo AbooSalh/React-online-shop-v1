@@ -11,7 +11,7 @@ export default function Logout(params) {
             headers: {
               Authorization: "Bearer " + cookie.Bearer,
             },
-          })
+          }).then(window.location.pathname = "login")
     } catch (error) {}
   }
   return <button onClick={handleLogout}>Logout</button>;
