@@ -5,8 +5,13 @@ export default function Register(params) {
     <Form
       endPoint={REGISTER}
       heading="register now"
-      btnValue="Sign up"
-      formInputs={{ email: "", password: "" , name:""}}
+      btn={{
+        value: "Register",
+        disabled: false,
+      }}
+      navigateTo="/dashboard"
+      enableGoogle={true}
+      formInputs={{ email: "", password: "", name: "" }}
       inputFeilds={[
         {
           name: "name",

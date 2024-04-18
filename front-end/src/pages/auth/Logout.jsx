@@ -1,17 +1,10 @@
-import axios from "axios";
-import { LOGOUT, baseUrl } from "../../API/Api";
-import { useCookies } from "react-cookie";
+import { LOGOUT } from "../../API/Api";
+import { Axios } from "../../API/axios";
 
 export default function Logout(params) {
-    const [cookie] = useCookies([`Bearer`]);
   async function handleLogout() {
     try {
-        axios
-          .get(`${baseUrl}/${LOGOUT}`, {
-            headers: {
-              Authorization: "Bearer " + cookie.Bearer,
-            },
-          }).then(window.location.pathname = "login")
+      Axios.get(`/${LOGOUT}`).then((window.location.pathname = "login"));
     } catch (error) {}
   }
   return <button onClick={handleLogout}>Logout</button>;

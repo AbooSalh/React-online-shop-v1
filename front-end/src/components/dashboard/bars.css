@@ -10,7 +10,6 @@
   padding: 0 20px;
 }
 .side-bar {
-  position: fixed;
   top: 70px;
   background-color: white;
   z-index: 1;

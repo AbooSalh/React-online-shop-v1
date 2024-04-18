@@ -6,8 +6,13 @@ export default function Login(params) {
     <Form
       endPoint={LOGIN}
       heading="login"
-      btnValue="login"
-      formInputs={{email:"", password:""}}
+      btn={{
+        value: "Login",
+        disabled: false,
+      }}
+      navigateTo="/dashboard"
+      enableGoogle={true}
+      formInputs={{ email: "", password: "" }}
       inputFeilds={[
         {
           name: "email",

@@ -7,34 +7,48 @@ import { useContext } from "react";
 import { WindowSize } from "../../Context/WindowContext";
 export default function SideBar(params) {
   const menu = useContext(Menu);
-  const windowS = useContext(WindowSize)
+  const windowS = useContext(WindowSize);
   const isOpen = menu.isOpen;
-  console.log(windowS.windowSize);
+  // navigation
 
   return (
-    <div
-      className="side-bar pt-3"
-      style={{
-        left: windowS.windowSize < "768" ? (isOpen ? 0 : "-100%") : 0,
-        width: isOpen ? "240px" : "fit-content",
-      }}
-    >
-      <NavLink
-        to={"users"}
-        className="d-flex align-items-center gap-2 side-bar-link fs-5 mt-3"
+    <>
+      <div
         style={{
-          padding: isOpen ? "5px 5px" : "10px",
+          position: "fixed",
+          top: "70px",
+          left: 0,
+          width: "100%",
+          height: "100vh",
+          backgroundColor: "rgba(0,0,0,0.2)",
+          display: windowS.windowSize < "768" && isOpen ? "block" : "none",
+        }}
+      ></div>
+      <div
+        className="side-bar pt-3"
+        style={{
+          left: windowS.windowSize < "768" ? (isOpen ? 0 : "-100%") : 0,
+          width: isOpen ? "240px" : "fit-content",
+          position: windowS.windowSize < "768" ? "fixed" : "sticky",
         }}
       >
-        <FontAwesomeIcon icon={faUsers} />
-        <p
+        <NavLink
+          to={"users"}
+          className="d-flex align-items-center gap-2 side-bar-link fs-5 mt-3"
           style={{
-            display: isOpen ? "block" : "none",
+            padding: isOpen ? "5px 5px" : "10px",
           }}
         >
-          Users
-        </p>
-      </NavLink>
-    </div>
+          <FontAwesomeIcon icon={faUsers} />
+          <p
+            style={{
+              display: isOpen ? "block" : "none",
+            }}
+          >
+            Users
+          </p>
+        </NavLink>
+      </div>
+    </>
   );
 }
