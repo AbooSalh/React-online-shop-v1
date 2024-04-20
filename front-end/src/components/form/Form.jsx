@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { baseUrl } from "../../API/Api";
+import { baseUrl, roleIdentifier } from "../../API/Api";
 import "./form.css";
 import Loading from "../Loading/Loading";
 import { useNavigate } from "react-router-dom";
@@ -8,8 +8,9 @@ import { useCookies } from "react-cookie";
 export default function Form(params) {
   // states
   const [form, setForm] = useState(params.formInputs || {});
-  console.log(form);
   const [error, setError] = useState("");
+  const [role, setRole] = useState();
+  console.log(form);
   // loading
   const [loading, setLoading] = useState(false);
   // cookies
@@ -53,23 +54,53 @@ export default function Form(params) {
         <div className="vh-100 d-flex align-items-center justify-content-center">
           <form onSubmit={submit}>
             <h1 className="mb-4">{params.heading}</h1>
-            {params.inputFeilds.map((param, index) => (
-              <div className="form-cell" key={index}>
-                <input
-                  type={param.type}
-                  name={param.name}
-                  value={form[param.name] || param.value}
-                  placeholder={param.name}
-                  id={param.name}
-                  onChange={handleChange}
-                  required
-                  {...param.customAttr}
-                />
-                <label htmlFor={param.name} className="form-label">
-                  {param.label}
-                </label>
-              </div>
-            ))}
+            {params.inputFeilds.map((param, index) =>
+              param.type === "select" ? (
+                // Render select input
+                <div className="form-cell" key={index}>
+                  <div className="form-cell" key={index}>
+                    <select
+                      name={param.name}
+                      value={form[param.name] || param.value}
+                      id={param.name}
+                      onChange={handleChange}
+                      required
+                      {...param.customAttr}
+                    >
+                      <option value="" disabled>select role</option>
+                      {param.options.map((role, index) =>{
+                        return (
+                          <option key={index} value={Object.keys(roleIdentifier)[index]}>
+                            {role}
+                          </option>
+                        )
+                      })}
+                    </select>
+                    <label htmlFor={param.name} className="form-label">
+                      {param.label}
+                    </label>
+                  </div>
+                </div>
+              ) : (
+                // Render normal input
+                <div className="form-cell" key={index}>
+                  <input
+                    type={param.type}
+                    name={param.name}
+                    value={form[param.name] || param.value}
+                    placeholder={param.name}
+                    id={param.name}
+                    onChange={handleChange}
+                    required
+                    {...param.customAttr}
+                  />
+                  <label htmlFor={param.name} className="form-label">
+                    {param.label}
+                  </label>
+                </div>
+              )
+            )}
+
             {error && (
               <div className="alert alert-danger" role="alert">
                 {error}

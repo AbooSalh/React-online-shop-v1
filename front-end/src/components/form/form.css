@@ -23,7 +23,8 @@ form {
   visibility: hidden;
   top: 10px;
 }
-.form-cell input {
+.form-cell input, 
+.form-cell select {
   padding: 10px 10px;
   outline: none;
   border-radius: 3px;

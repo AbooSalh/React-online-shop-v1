@@ -1,4 +1,4 @@
-import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
 import "./bars.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
@@ -46,6 +46,22 @@ export default function SideBar(params) {
             }}
           >
             Users
+          </p>
+        </NavLink>
+        <NavLink
+          to={"user/add"}
+          className="d-flex align-items-center gap-2 side-bar-link fs-5 mt-3"
+          style={{
+            padding: isOpen ? "5px 5px" : "10px",
+          }}
+        >
+          <FontAwesomeIcon icon={faPlus} />
+          <p
+            style={{
+              display: isOpen ? "block" : "none",
+            }}
+          >
+            add user
           </p>
         </NavLink>
       </div>

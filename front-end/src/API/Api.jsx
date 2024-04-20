@@ -6,3 +6,8 @@ export const LOGOUT = "logout";
 export const USER = "user";
 export const UPDATE = "update";
 export const GOOGLE_CALL_BACK = "auth/google/callback";
+export const roleIdentifier = {
+  1992: "admin",
+  1995: "writer",
+  2001: "user",
+};

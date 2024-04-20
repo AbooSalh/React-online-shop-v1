@@ -1,6 +1,6 @@
 import { LOGIN } from "../../API/Api";
 import Form from "../../components/form/Form";
-export default function Login(params) {
+export default function Login() {
   //   the output
   return (
     <Form
