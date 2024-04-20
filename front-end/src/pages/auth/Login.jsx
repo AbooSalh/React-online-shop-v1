@@ -10,7 +10,10 @@ export default function Login() {
         value: "Login",
         disabled: false,
       }}
-      navigateTo="/dashboard"
+      navigate={{
+        to:"/dashboard",
+        method : "replace"
+      }}
       enableGoogle={true}
       formInputs={{ email: "", password: "" }}
       inputFeilds={[

@@ -9,7 +9,10 @@ export default function Register(params) {
         value: "Register",
         disabled: false,
       }}
-      navigateTo="/dashboard"
+      navigate={{
+        to: "/dashboard",
+        method: "replace",
+      }}
       enableGoogle={true}
       formInputs={{ email: "", password: "", name: "" }}
       inputFeilds={[

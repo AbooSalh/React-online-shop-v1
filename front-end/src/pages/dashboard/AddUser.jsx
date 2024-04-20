@@ -6,7 +6,7 @@ export default function AddUser(params) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState('1992');
+  const [role, setRole] = useState("1992");
   return (
     <>
       <Form
@@ -15,7 +15,9 @@ export default function AddUser(params) {
         btn={{
           value: "Add",
         }}
-        navigateTo="/dashboard/users"
+        navigate={{
+          to: "/dashboard/users",
+        }}
         formInputs={{
           name: name,
           email: email,

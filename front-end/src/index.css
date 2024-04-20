@@ -12,3 +12,6 @@
 table tr td {
   text-transform: initial;
 }
+#root {
+  height: 100vh;
+}

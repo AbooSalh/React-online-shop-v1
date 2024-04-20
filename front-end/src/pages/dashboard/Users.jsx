@@ -6,25 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { Axios } from "../../API/axios";
-import Cookie from "cookie-universal";
-
 export default function Users(params) {
   const [users, setUsers] = useState([]);
   const [cookies] = useCookies(["Bearer"]);
-  const cookie = new Cookie();
-  const token = cookie.get("Bearer");
   const [cellLoading, setCellLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
   const [noUsers, setNoUsers] = useState(false);
-
   // current user
   useEffect(() => {
-    axios
-      .get(`${baseUrl}/${USER}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
+    Axios.get(`/${USER}`)
       .then((res) => setCurrentUser(res.data))
       .catch((err) => new Error("Error fetching current user:", err));
   }, []);
@@ -51,7 +41,6 @@ export default function Users(params) {
   }, []);
 
   // user filter
-  const userFilter = users.filter((user) => user.id !== currentUser?.id);
   const usersShow = users.map((user) => (
     <tr key={user.id} id={user.id}>
       <td>{user.id}</td>

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { USER, baseUrl, roleIdentifier } from "../../API/Api";
+import { USER, roleIdentifier } from "../../API/Api";
 import Form from "../../components/form/Form";
-import axios from "axios";
 import Loading from "../../components/Loading/Loading";
-import Cookie from "cookie-universal";
+import { Axios } from "../../API/axios";
 export default function User() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -11,15 +10,9 @@ export default function User() {
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
   const id = window.location.pathname.replace("/dashboard/users/", "");
-  const cookie = new Cookie();
-  const token = cookie.get("Bearer");
   useEffect(() => {
-    axios
-      .get(`${baseUrl}/${USER}/${id}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
+    Axios
+      .get(`/${USER}/${id}`)
       .then((data) => {
         setName(data.data.name);
         setEmail(data.data.email);
@@ -39,7 +32,9 @@ export default function User() {
           value: "Update",
           disabled: disabled,
         }}
-        navigateTo="/dashboard/users"
+        navigate={{
+          to: "/dashboard/users",
+        }}
         userID={id}
         formInputs={{ name: name, email: email, role: role }}
         inputFeilds={[

@@ -1,16 +1,14 @@
 import { useState } from "react";
-import axios from "axios";
-import { baseUrl, roleIdentifier } from "../../API/Api";
+import {  roleIdentifier } from "../../API/Api";
 import "./form.css";
 import Loading from "../Loading/Loading";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { Axios } from "../../API/axios";
 export default function Form(params) {
   // states
   const [form, setForm] = useState(params.formInputs || {});
   const [error, setError] = useState("");
-  const [role, setRole] = useState();
-  console.log(form);
   // loading
   const [loading, setLoading] = useState(false);
   // cookies
@@ -26,14 +24,14 @@ export default function Form(params) {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post(`${baseUrl}/${params.endPoint}`, form, {
-        headers: {
-          Authorization: `Bearer ${cookies.Bearer}`,
-        },
-      });
+      const res = await Axios.post(`/${params.endPoint}`, form);
       const token = res.data.token || cookies.Bearer;
       setCookie("Bearer", token);
-      navigate(params.navigateTo, { replace: true });
+      if (params.navigate.method === "replace") {
+        window.location.pathname = params.navigate.to
+      } else {
+        navigate(params.navigate.to);
+      }
     } catch (error) {
       if (error.response.status === 422) {
         setError("Email is already in use");
@@ -67,13 +65,18 @@ export default function Form(params) {
                       required
                       {...param.customAttr}
                     >
-                      <option value="" disabled>select role</option>
-                      {param.options.map((role, index) =>{
+                      <option value="" disabled>
+                        select role
+                      </option>
+                      {param.options.map((role, index) => {
                         return (
-                          <option key={index} value={Object.keys(roleIdentifier)[index]}>
+                          <option
+                            key={index}
+                            value={Object.keys(roleIdentifier)[index]}
+                          >
                             {role}
                           </option>
-                        )
+                        );
                       })}
                     </select>
                     <label htmlFor={param.name} className="form-label">

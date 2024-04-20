@@ -7,28 +7,37 @@ import { USER, baseUrl } from "../../API/Api";
 
 import Loading from "../../components/Loading/Loading";
 import axios from "axios";
-export default function RequireAuth() {
-  const [user, setUser] = useState();
+
+export default function RequireAuth({ allowedRole }) {
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
   useEffect(() => {
+    const cookie = Cookie();
+    const token = cookie.get("Bearer");
+    if (!token) {
+      navigate("/login", { replace: true });
+      return;
+    }
     axios
       .get(`${baseUrl}/${USER}`, {
         headers: { Authorization: "Bearer " + token },
       })
-      .then((res) => {
-        setUser(res.data);
+      .then((response) => {
+        setUser(response.data);
       })
-      .catch(() => navigate("/login", { replace: true }));
-  },[]);
-  const cookie = Cookie();
-  const token = cookie.get("Bearer");
-  return token ? (
-    !user ? (
-      <Loading />
-    ) : (
-      <Outlet />
-    )
-  ) : (
-    <Navigate to={"/login"} replace={true} />
-  );
+      .catch(() => {
+        navigate("/login", { replace: true });
+      });
+  }, []);
+
+  if (!user) {
+    return <Loading />;
+  }
+
+  if (allowedRole.includes(user.role)) {
+    return <Outlet />;
+  }
+
+  return <Navigate to="/403" replace={true} />;
 }
