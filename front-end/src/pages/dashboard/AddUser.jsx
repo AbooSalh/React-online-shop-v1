@@ -3,10 +3,10 @@ import Form from "../../components/form/Form";
 import { USER, roleIdentifier } from "../../API/Api";
 
 export default function AddUser(params) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("1992");
+  const [name] = useState("");
+  const [email] = useState("");
+  const [password] = useState("");
+  const [role] = useState("1992");
   return (
     <>
       <Form
