@@ -8,7 +8,6 @@ export default function AddUser(params) {
   const [password] = useState("");
   const [role] = useState("1992");
   return (
-    <>
       <Form
         endPoint={`${USER}/add`}
         heading="Add User"
@@ -52,6 +51,5 @@ export default function AddUser(params) {
           },
         ]}
       />
-    </>
   );
 }
