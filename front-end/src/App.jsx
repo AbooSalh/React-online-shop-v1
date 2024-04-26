@@ -16,22 +16,31 @@ import User from "./pages/dashboard/User";
 import AddUser from "./pages/dashboard/AddUser";
 import Page403 from "./pages/auth/403";
 import Writer from "./pages/dashboard/Writer";
-export default function App(params) {
+import Page404 from "./pages/auth/404";
+import RequireBack from "./pages/auth/RequireBack";
+import Categories from "./pages/dashboard/Categories";
+export default function App() {
   return (
     <Router>
       <Routes>
         {/* public */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/auth/google/callback" element={<GoogleCallBack />} />
+        <Route element={<RequireBack />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/auth/google/callback" element={<GoogleCallBack />} />
+        </Route>
+        <Route path="*" element={<Page404 />} />
         <Route path="403" element={<Page403 />} />
         {/* protected */}
-        <Route element={<RequireAuth allowedRole={["1995", "1992"]} />}>
+        <Route element={<RequireAuth allowedRole={["1995", "1992", "1999"]} />}>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route element={<RequireAuth allowedRole={["1995", "1992"]} />}>
               <Route path="users" element={<Users />} />
               <Route path="users/:id" element={<User />} />
               <Route path="user/add" element={<AddUser />} />
+            </Route>
+            <Route element={<RequireAuth allowedRole={["1999", "1995"]} />}>
+              <Route path="categories" element={<Categories />} />
             </Route>
             <Route
               element={

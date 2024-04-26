@@ -1,4 +1,4 @@
-import { faPen, faPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faPen, faPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
 
 export const Links = [
   {
@@ -17,6 +17,12 @@ export const Links = [
     name: "writer",
     path: "writer",
     icon: faPen,
+    role: ["1992", "1995"],
+  },
+  {
+    name: "categories",
+    path: "categories",
+    icon: faCartShopping,
     role: ["1992", "1995"],
   },
 ];

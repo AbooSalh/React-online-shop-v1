@@ -3,23 +3,25 @@ import { USER, roleIdentifier } from "../../API/Api";
 import Form from "../../components/form/Form";
 import Loading from "../../components/Loading/Loading";
 import { Axios } from "../../API/axios";
+import { useNavigate } from "react-router-dom";
 export default function User() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [role, setRole] = useState();
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(true);
+  const nav = useNavigate();
   const id = window.location.pathname.replace("/dashboard/users/", "");
   useEffect(() => {
-    Axios
-      .get(`/${USER}/${id}`)
+    Axios.get(`/${USER}/${id}`)
       .then((data) => {
         setName(data.data.name);
         setEmail(data.data.email);
         setRole(data.data.role);
       })
       .then(() => setDisabled(false))
-      .then(() => setLoading(false));
+      .then(() => setLoading(false))
+      .catch(() => nav("/404" ,{replace:true}));
   }, []);
   return loading ? (
     <Loading />

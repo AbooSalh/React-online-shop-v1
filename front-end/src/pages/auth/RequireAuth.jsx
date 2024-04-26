@@ -4,7 +4,6 @@ import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { USER, baseUrl } from "../../API/Api";
-
 import Loading from "../../components/Loading/Loading";
 import axios from "axios";
 
