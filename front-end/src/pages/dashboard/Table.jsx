@@ -2,33 +2,27 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { roleIdentifier } from "../../API/Api";
-import { Axios } from "../../API/axios";
 
 export default function Table({ headers, data, delItem, currentUser }) {
-  const showCurrentUser = currentUser || false
+  const showCurrentUser = currentUser || false;
   const headerShow = headers.map((header) => {
     return <th key={header.key}>{header.label}</th>;
   });
-  // handle delete
-  async function handleDelete(id) {
-    try {
-      const res = await Axios.delete(`${delItem}/${id}`);
-      document.getElementById(id).remove();
-    } catch (error) {
-      new Error("Error deleting user:", error);
-    }
-  }
+
   // handle show
   const dataShow = data.map((item) => {
     return (
-      <tr key={item.id}>
+      <tr key={item.id} id={item.id}>
         {headers.map((header) => {
           // get roles id from our object
           let getRole = (id, defaultValue = item[header.key]) =>
             roleIdentifier[id] || defaultValue;
           return (
             <td key={header.key}>
-              {getRole(item[header.key])} { currentUser && item[header.key] === showCurrentUser.name && "(You)"}
+              {getRole(item[header.key])}{" "}
+              {currentUser &&
+                item[header.key] === showCurrentUser.name &&
+                "(You)"}
             </td>
           );
         })}
@@ -43,7 +37,7 @@ export default function Table({ headers, data, delItem, currentUser }) {
               color="red"
               icon={faTrash}
               cursor={"pointer"}
-              onClick={() => handleDelete(item.id)}
+              onClick={() => delItem(item.id)}
             />
           </div>
         </td>
@@ -69,7 +63,7 @@ export default function Table({ headers, data, delItem, currentUser }) {
         {data.length === 0 ? (
           <tr>
             <td colSpan={headers.length + 1} className="text-center">
-              {data.cellLoading ? "loading..." : "no users"}
+              {data.length === 0 && "loading..."}
             </td>
           </tr>
         ) : (

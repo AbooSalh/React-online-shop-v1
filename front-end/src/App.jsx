@@ -19,6 +19,7 @@ import Writer from "./pages/dashboard/Writer";
 import Page404 from "./pages/auth/404";
 import RequireBack from "./pages/auth/RequireBack";
 import Categories from "./pages/dashboard/Categories";
+import HomePage from "./pages/website/HomePage"
 export default function App() {
   return (
     <Router>
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/auth/google/callback" element={<GoogleCallBack />} />
         </Route>
         <Route path="*" element={<Page404 />} />
+        <Route path="" element={<HomePage/>} />
         <Route path="403" element={<Page403 />} />
         {/* protected */}
         <Route element={<RequireAuth allowedRole={["1995", "1992", "1999"]} />}>
