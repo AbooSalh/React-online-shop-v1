@@ -1,4 +1,9 @@
-import { faCartShopping, faPen, faPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faPen,
+  faPlus,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const Links = [
   {

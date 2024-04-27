@@ -16,7 +16,7 @@ export default function Users(params) {
   // handle delete
   async function handleDelete(id) {
     try {
-      const res = await Axios.delete(`${USER}/${id}`);
+      await Axios.delete(`${USER}/${id}`);
       document.getElementById(id).remove();
     } catch (error) {
       new Error("Error deleting user:", error);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  roleIdentifier } from "../../API/Api";
+import { roleIdentifier } from "../../API/Api";
 import "./form.css";
 import Loading from "../Loading/Loading";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ export default function Form(params) {
       const token = res.data.token || cookies.Bearer;
       setCookie("Bearer", token);
       if (params.navigate.method === "replace") {
-        window.location.pathname = params.navigate.to
+        window.location.pathname = params.navigate.to;
       } else {
         navigate(params.navigate.to);
       }
@@ -79,10 +79,25 @@ export default function Form(params) {
                         );
                       })}
                     </select>
-                    <label htmlFor={param.name} className="form-label">
+                    <label key={index} htmlFor={param.name} className="form-label">
                       {param.label}
                     </label>
                   </div>
+                </div>
+              ) : param.type === "file" ? (
+                // Render file input
+                <div className="mb-3">
+                  <input
+                    type={param.type}
+                    name={param.name}
+                    value={form[param.name] || param.value}
+                    placeholder={param.name}
+                    id={param.name}
+                    onChange={handleChange}
+                    required
+                    {...param.customAttr}
+                    className="form-control"
+                  />
                 </div>
               ) : (
                 // Render normal input

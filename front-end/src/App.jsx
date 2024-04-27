@@ -20,6 +20,7 @@ import Page404 from "./pages/auth/404";
 import RequireBack from "./pages/auth/RequireBack";
 import Categories from "./pages/dashboard/Categories";
 import HomePage from "./pages/website/HomePage"
+import AddCat from "./pages/dashboard/AddCat";
 export default function App() {
   return (
     <Router>
@@ -43,6 +44,7 @@ export default function App() {
             </Route>
             <Route element={<RequireAuth allowedRole={["1999", "1995"]} />}>
               <Route path="categories" element={<Categories />} />
+              <Route path="categories/add" element={<AddCat />} />
             </Route>
             <Route
               element={

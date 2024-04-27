@@ -10,7 +10,7 @@ export default function Table({ headers, data, delItem, currentUser }) {
   });
 
   // handle show
-  const dataShow = data.map((item) => {
+  const dataShow = data.map((item ,i) => {
     return (
       <tr key={item.id} id={item.id}>
         {headers.map((header) => {
