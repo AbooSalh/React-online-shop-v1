@@ -1,15 +1,13 @@
 import { useState } from "react";
 import Form from "../../components/form/Form";
-import { CAT } from "../../API/Api";
+import { aCAT } from "../../API/Api";
 
 export default function AddCat(params) {
     const [title, setTitle] = useState(); 
     const [image, setImage] = useState();
-    
-    
   return (
     <Form
-      endPoint={`${CAT}/add`}
+      endPoint={`${aCAT}/add`}
       heading="Add Category"
       btn={{
         value: "Add",
@@ -23,7 +21,7 @@ export default function AddCat(params) {
       }}
       inputFeilds={[
         {
-          name: "Title",
+          name: "title",
           type: "name",
           label: "title",
           value: title,

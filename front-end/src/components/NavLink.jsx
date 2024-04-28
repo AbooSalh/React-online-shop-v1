@@ -18,16 +18,4 @@ export const Links = [
     icon: faPlus,
     role: "1995",
   },
-  {
-    name: "writer",
-    path: "writer",
-    icon: faPen,
-    role: ["1992", "1995"],
-  },
-  {
-    name: "categories",
-    path: "categories",
-    icon: faCartShopping,
-    role: ["1992", "1995"],
-  },
 ];

@@ -15,8 +15,17 @@ export default function Form(params) {
   const [cookies, setCookie] = useCookies();
   // onChange
   function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    if (e.target.type === "file") {
+      const file = e.target.files.item[0];
+      const formData = new FormData();
+      formData.append(e.target.name, file);
+      
+      setForm(formData);
+    } else {
+      setForm({ ...form, [e.target.name]: e.target.value });
+    }
   }
+
   // navigation
   const navigate = useNavigate();
   // on submit
@@ -40,6 +49,7 @@ export default function Form(params) {
         setError("Email or password are incorrect");
       } else {
         setError("Internal Server Error");
+        console.log(error);
       }
     } finally {
       setLoading(false);
@@ -79,7 +89,11 @@ export default function Form(params) {
                         );
                       })}
                     </select>
-                    <label key={index} htmlFor={param.name} className="form-label">
+                    <label
+                      key={index}
+                      htmlFor={param.name}
+                      className="form-label"
+                    >
                       {param.label}
                     </label>
                   </div>

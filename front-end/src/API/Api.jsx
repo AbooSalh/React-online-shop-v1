@@ -7,6 +7,7 @@ export const USER = "user";
 export const UPDATE = "update";
 export const GOOGLE_CALL_BACK = "auth/google/callback";
 export const CAT = "categories"
+export const aCAT = "category"
 export const roleIdentifier = {
   1995: "admin",
   1992: "writer",
